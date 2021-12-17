@@ -1,0 +1,1679 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>BCA 2023 - new</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #23262a;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        a {
+            color: #0068e0;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #b9bbbe;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(185, 187, 190, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #c7ccd1;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #f9f9f9;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #f3f3f3;
+            border-radius: 5px;
+            color: #657b83;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #f9f9f9;
+            color: #657b83;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #505cdc;
+            background-color: rgba(88, 101, 242, .15);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(6, 6, 7, 0.08);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #2f3136;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid #eceeef;
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #c7ccd1;
+            border-top: 2px solid #c7ccd1;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #5f5f60;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #5f5f60;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #2f3136;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #2f3136;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: #747f8d;
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 600;
+            color: #2f3136;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #747f8d;
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #f2f3f5;
+            border: 1px solid #ebedef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: #747f8d;
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: rgba(227, 229, 232, 1);
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(249, 249, 249, 0.3);
+            border: 1px solid rgba(204, 204, 204, 0.3);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #4f545c
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #4f545c;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #4f545c;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #2e3338;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #36393e;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #2e3338;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #2e3338;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #f2f3f5;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: rgba(0, 0, 0, 0.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: white;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #4f5660;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #2e3338;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid #eceeef;
+        }
+
+        .postamble__entry {
+            color: #2f3136;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/1812f47b118bba9e736d2dbc010cbbd1-28932.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">B. Tech</div>
+        <div class="preamble__entry">Server Demons / new</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/3-FB033.png" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Test Stuff#7288" data-user-id="917782266283970630" style="">Test Stuff</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Dec-21 10:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="921260821961666633" id="message-921260821961666633" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 1 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cd05aae7ec8fea4bece49031a045ce646.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\d05aae7ec8fea4bece49031a045ce646.PNG</a>
+<strong>OCR: </strong>Which of the following is a symmetric relation on the set A= {1, 2, 3}?
+A R={0.22.2.B.9.03)} B.R={2.).02).2.3. 6.0.6.3}
+
+&#169;. R=(.D.22)..3).2.D.G.D.G.3)} _D. None of these
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/d05aae7ec8fea4bece49031a045ce646-FC13E.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/d05aae7ec8fea4bece49031a045ce646-FC13E.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260823589056533" id="message-921260823589056533" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 2 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C5f35ebcb60387a714e5efa54a9b8637e.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\5f35ebcb60387a714e5efa54a9b8637e.PNG</a>
+<strong>OCR: </strong>(P&gt; ~ Q) is logically equivalent to?
+A (~P3Q) B. (~PvQ)
+
+Cc. (Pv~Q) D. (~Pv~Q)
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/5f35ebcb60387a714e5efa54a9b8637e-51007.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/5f35ebcb60387a714e5efa54a9b8637e-51007.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260825396793344" id="message-921260825396793344" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 3 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C50d47691b22f69caf9177eba4c78dd52.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\50d47691b22f69caf9177eba4c78dd52.PNG</a>
+<strong>OCR: </strong>In any distributive lattice if (m ATi) = 0 then which of the following is true
+
+Am
+
+A
+x
+
+B. nSm
+
+Cm
+
+A
+aI
+
+D. None of these
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/50d47691b22f69caf9177eba4c78dd52-FC0C4.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/50d47691b22f69caf9177eba4c78dd52-FC0C4.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260827229716530" id="message-921260827229716530" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 4 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C0f2689e0e293ce907f128a9d9f97e3a9.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\0f2689e0e293ce907f128a9d9f97e3a9.PNG</a>
+<strong>OCR: </strong> 
+
+A {1,1,0,1,1,1,1..} B. {1.1,1,0,1,1,1..}
+
+C. G01 111.2} D. None of these.
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/0f2689e0e293ce907f128a9d9f97e3a9-C92EF.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/0f2689e0e293ce907f128a9d9f97e3a9-C92EF.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260829029044234" id="message-921260829029044234" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 5 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C417de133c3611620bd8e49330577a251.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\417de133c3611620bd8e49330577a251.PNG</a>
+<strong>OCR: </strong>The sequence (up to four terms) corresponding to the recurrence relation a, =a, , +3a,_&gt;.
+
+22 and a, =3,a,=6 is?
+A. 3,6,9,12,..3 B. (3,6, 15, 33,...}
+
+C. {3,6, 15, 30,..} D. None of these.
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/417de133c3611620bd8e49330577a251-900CD.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/417de133c3611620bd8e49330577a251-900CD.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260846909366322" id="message-921260846909366322" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 6 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cb5fc2329986fc9e6b7a011f1dcac6e65.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\b5fc2329986fc9e6b7a011f1dcac6e65.PNG</a>
+<strong>OCR: </strong>ATV survey shows that 60 percent people see programme A, 50 percent see programme B, and
+40 percent see programme C, 30 percent see programme A and B, 20 percent see programme B
+and C, 36 percent see programme A and C, and 10 percent see all three programs. Find what
+percent of people see programme A or B or C?
+
+A. 100 B. 74
+
+c. 54 D. None of these.
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/b5fc2329986fc9e6b7a011f1dcac6e65-C7A2C.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/b5fc2329986fc9e6b7a011f1dcac6e65-C7A2C.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260849677615104" id="message-921260849677615104" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 7 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cdae8d304bc6856d826bccd536d6ac915.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\dae8d304bc6856d826bccd536d6ac915.PNG</a>
+<strong>OCR: </strong>‘The maximum degree of a vertex in a simple graph with 69 vertices is:
+A69 B. 68
+
+Cc. 138 D. None of these
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/dae8d304bc6856d826bccd536d6ac915-39653.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/dae8d304bc6856d826bccd536d6ac915-39653.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260851451809833" id="message-921260851451809833" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 8 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C901a5895a22faaee0adb369628a0de63.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\901a5895a22faaee0adb369628a0de63.PNG</a>
+<strong>OCR: </strong>Let S(x): x isa student, A(+): x likes Mathematics, and G(x) : xlikes Geography. The symbolic
+form of the statement &quot;There is a student who likes Mathematics but not Geography” is
+
+A (SQ) AAQDA~ GO) B. (29) (SQ) 0.4) AGO)
+
+C. (SA AQDA~ GX) D. (9) (S@) AAG)
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/901a5895a22faaee0adb369628a0de63-91306.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/901a5895a22faaee0adb369628a0de63-91306.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260853372813402" id="message-921260853372813402" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 9 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cdb5dfe4b2932ab95b533fee08be61224.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\db5dfe4b2932ab95b533fee08be61224.PNG</a>
+<strong>OCR: </strong>If (L.9); L={a,b,c,d} is a Boolean lattice then possible complement/complements of a
+is/are?
+
+Ab B. bc
+
+Cad D. a,b.
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/db5dfe4b2932ab95b533fee08be61224-3A6D4.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/db5dfe4b2932ab95b533fee08be61224-3A6D4.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260855667085353" id="message-921260855667085353" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>MCQ Question No: 10 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C7515961fb2ee1d4fe336c54376e3c982.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\7515961fb2ee1d4fe336c54376e3c982.PNG</a>
+<strong>OCR: </strong>Minimum number of students in a class to be sure that at least four students receive the same
+score in the Mid semester examination if the exam is graded on the scale from 0 to 100 point is:
+
+A 52 B. 303
+
+C. 304 D. None of these
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/7515961fb2ee1d4fe336c54376e3c982-5671A.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/7515961fb2ee1d4fe336c54376e3c982-5671A.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260871991316490" id="message-921260871991316490" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 1 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Ca8571fc3539ca99a912567f327ba526d.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\a8571fc3539ca99a912567f327ba526d.PNG</a>
+<strong>OCR: </strong>The scope of the universal quantifier in (x)(P(x) v~ Q(x)) &gt; (S)R(x) is?
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/a8571fc3539ca99a912567f327ba526d-2BBEE.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/a8571fc3539ca99a912567f327ba526d-2BBEE.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260873815842846" id="message-921260873815842846" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 2 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C08cf4a36622985a4355fc707a46590c6.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\08cf4a36622985a4355fc707a46590c6.PNG</a>
+<strong>OCR: </strong>(Choose the correct option) Every cubic graph has
+A) odd Number of vertices,
+
+B) even number of vertices,
+
+C) prime number of vertices,
+
+D) none of these.
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/08cf4a36622985a4355fc707a46590c6-1F215.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/08cf4a36622985a4355fc707a46590c6-1F215.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260875434852363" id="message-921260875434852363" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 3 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C32632693b0653bbe7f8ac7081febb167.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\32632693b0653bbe7f8ac7081febb167.PNG</a>
+<strong>OCR: </strong>Choose all correct options:
+The given walk ye,&#165;,0:V,0:V-e ep is a
+A. path,
+
+B. cycle,
+
+C. trail,
+
+D. none of these
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/32632693b0653bbe7f8ac7081febb167-0FFD8.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/32632693b0653bbe7f8ac7081febb167-0FFD8.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260876965765231" id="message-921260876965765231" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 4 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C1c36cc40fb1909d35c7f2d0004af157b.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\1c36cc40fb1909d35c7f2d0004af157b.PNG</a>
+<strong>OCR: </strong>The sequence {a,} whose generating function is given by
+
+6
+oo o=as Sy Inde
+
+is:
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/1c36cc40fb1909d35c7f2d0004af157b-705A2.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/1c36cc40fb1909d35c7f2d0004af157b-705A2.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260879134224434" id="message-921260879134224434" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 5 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Caa292627361d84626662cae5badb71fd.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\aa292627361d84626662cae5badb71fd.PNG</a>
+<strong>OCR: </strong>If G(6,14) is a graph whose vertices are of degree either 3 or 5. If G has m number of vertices
+of degree 3 then the value of m is?
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/aa292627361d84626662cae5badb71fd-64D9C.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/aa292627361d84626662cae5badb71fd-64D9C.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260896892907600" id="message-921260896892907600" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 6 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cc04830e2dcac5275e7260ea253b7ef4f.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\c04830e2dcac5275e7260ea253b7ef4f.PNG</a>
+<strong>OCR: </strong>‘The generating function of the sequence {1, 6, 36, 216, ...} is G6)=
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/c04830e2dcac5275e7260ea253b7ef4f-A526B.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/c04830e2dcac5275e7260ea253b7ef4f-A526B.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260898562215956" id="message-921260898562215956" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 7 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Ca3058988367b99dea3dab4dcce5f75aa.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\a3058988367b99dea3dab4dcce5f75aa.PNG</a>
+<strong>OCR: </strong>Let (Z,&#162;) be a group, where acb=a+b+1, a,beZ. Then the identity element in the group
+is?
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/a3058988367b99dea3dab4dcce5f75aa-967C0.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/a3058988367b99dea3dab4dcce5f75aa-967C0.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260900252528650" id="message-921260900252528650" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 8 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C8e0693760745ce521d3e17351ab79b35.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\8e0693760745ce521d3e17351ab79b35.PNG</a>
+<strong>OCR: </strong>Mention at least one reason for which the set of real numbers R does not forms a group with
+respect to the binary composition <em>, defined as a</em>b= 2(a+ b) forall a,beR
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/8e0693760745ce521d3e17351ab79b35-334F4.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/8e0693760745ce521d3e17351ab79b35-334F4.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260902135779328" id="message-921260902135779328" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 9 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C4da06cd80030753f40d5d35564ee89c1.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\4da06cd80030753f40d5d35564ee89c1.PNG</a>
+<strong>OCR: </strong>‘What is a valid conclusion from the premises (~ Pv), ~P &gt;~R, Q&gt;~R?
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/4da06cd80030753f40d5d35564ee89c1-C8844.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/4da06cd80030753f40d5d35564ee89c1-C8844.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260903947718666" id="message-921260903947718666" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 10 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C335d0f39b208f027ff3a4ab8feec8b85.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\335d0f39b208f027ff3a4ab8feec8b85.PNG</a>
+<strong>OCR: </strong>The proposition (PAQAR)V(PAQA~ R) is equivalent to
+A &#169; PvQ) B. (PvQ)
+
+c. AQ) D. (PA~Q)
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/335d0f39b208f027ff3a4ab8feec8b85-DB9D5.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/335d0f39b208f027ff3a4ab8feec8b85-DB9D5.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260921454747689" id="message-921260921454747689" title="Message sent: 17-Dec-21 10:11 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 11 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cd080c1aebee132035c67c2569156c276.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\d080c1aebee132035c67c2569156c276.PNG</a>
+<strong>OCR: </strong>If G is a simple graph with 28 vertices and number of edges of the graph G is 129. Then
+number of vertices of G and number of edges of G, respectively are
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/d080c1aebee132035c67c2569156c276-3D287.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/d080c1aebee132035c67c2569156c276-3D287.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260923602210826" id="message-921260923602210826" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 12 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C98047465ea5acdeaffa9f54c2a1e4347.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\98047465ea5acdeaffa9f54c2a1e4347.PNG</a>
+<strong>OCR: </strong>Let Z be the set of all integers and a relation R on Z is defined as
+R={(x,y)| 2x+3y is divisible by 5 andx, ye Z}. Then R is
+
+A. Partial ordered relation B. Equivalence relation
+
+C. Partial ordered and equivalence relation D. None of these
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/98047465ea5acdeaffa9f54c2a1e4347-B4358.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/98047465ea5acdeaffa9f54c2a1e4347-B4358.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260925485473792" id="message-921260925485473792" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 13 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cabb7a5c98f7cee8a3fd388c3af8cd77a.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\abb7a5c98f7cee8a3fd388c3af8cd77a.PNG</a>
+<strong>OCR: </strong>The dual of the proposition (R A(P&lt;+.Q))VT is:
+A. RV(PAQVAC PA~Q))VF B. (RV(PVQ)ACQV~P))VF
+
+C. RV(PVO)ACQV~P)VT D. (PA~Q)V~ PvQ)vT
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/abb7a5c98f7cee8a3fd388c3af8cd77a-FE3FB.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/abb7a5c98f7cee8a3fd388c3af8cd77a-FE3FB.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260927167365130" id="message-921260927167365130" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 14 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C641bb78ffd815f7c1672eaea23e975c4.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\641bb78ffd815f7c1672eaea23e975c4.PNG</a>
+<strong>OCR: </strong>If Gis an r-regular graph with 9 vertices and 36 edges then the value of r is?
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/641bb78ffd815f7c1672eaea23e975c4-E8340.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/641bb78ffd815f7c1672eaea23e975c4-E8340.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260928840912936" id="message-921260928840912936" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 15 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cd0c0c98c05476997392a308cbc831b8a.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\d0c0c98c05476997392a308cbc831b8a.PNG</a>
+<strong>OCR: </strong>Choose all correct options:
+A Every lattice is a poset,
+
+B. Every poset is a lattice,
+
+C. Every distributive lattice is complemented,
+D. Every Boolean lattice is distributive
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/d0c0c98c05476997392a308cbc831b8a-B1193.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/d0c0c98c05476997392a308cbc831b8a-B1193.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260946616377405" id="message-921260946616377405" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 16 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C3304f394d7c40b5148df8a418b80b497.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\3304f394d7c40b5148df8a418b80b497.PNG</a>
+<strong>OCR: </strong>If (L,V,A) isa lattice and for any 2,3,4,5€L if 2&lt;3 and 4&lt;Sthen (2v4)&lt;
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/3304f394d7c40b5148df8a418b80b497-0F400.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/3304f394d7c40b5148df8a418b80b497-0F400.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260948369584128" id="message-921260948369584128" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 17 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cfe81575637a8cd6f3a48c2f685fb6de5.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\fe81575637a8cd6f3a48c2f685fb6de5.PNG</a>
+<strong>OCR: </strong>(Choose the correct option) The recurrence relation a,,)—5a,,., + 64, =n&quot; is
+
+A. Linear and homogeneous, B. Non-linear and homogeneous
+
+C. Non-linear and non-homogeneous, D. Linear and non-homogeneous.
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/fe81575637a8cd6f3a48c2f685fb6de5-B2FD7.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/fe81575637a8cd6f3a48c2f685fb6de5-B2FD7.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260950143778816" id="message-921260950143778816" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 18 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C2bdcafa42cb3489d73fd42bb4ba61df7.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\2bdcafa42cb3489d73fd42bb4ba61df7.PNG</a>
+<strong>OCR: </strong>Choose all correct options:
+A P.Q&gt;P30
+
+B.P&gt;Q0,.0&gt;R=&gt;P&gt;R
+C. P,&#162;PVQ)&gt;0
+D. PAW P)&gt;F
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/2bdcafa42cb3489d73fd42bb4ba61df7-E02D2.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/2bdcafa42cb3489d73fd42bb4ba61df7-E02D2.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260951594999809" id="message-921260951594999809" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 19 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C950b18955a5e6d13c80e8ee5dc6bb4a6.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\950b18955a5e6d13c80e8ee5dc6bb4a6.PNG</a>
+<strong>OCR: </strong>If (Z,v,A) is a lattice and 3, 6€Z thea 3v(6A3)=
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/950b18955a5e6d13c80e8ee5dc6bb4a6-297EE.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/950b18955a5e6d13c80e8ee5dc6bb4a6-297EE.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260953604075520" id="message-921260953604075520" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 20 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C36356b281ae954883bfb38ad19b89065.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\36356b281ae954883bfb38ad19b89065.PNG</a>
+<strong>OCR: </strong>If R be a selation on the set A=(p.g,r,spand Mz = be the relation matrix
+
+ooo
+conn
+HH oo
+Horo
+
+corresponding to R, then R=
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/36356b281ae954883bfb38ad19b89065-C09D4.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/36356b281ae954883bfb38ad19b89065-C09D4.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260971421466684" id="message-921260971421466684" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 21 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C68bd0612ba503a3d6feb06795ca7e0b2.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\68bd0612ba503a3d6feb06795ca7e0b2.PNG</a>
+<strong>OCR: </strong>Choose all correct options:
+A Ina multigraph loops are not allowed,
+
+B. Ina pseudo graph both loop and multiple lines are allowed,
+C. A cubic graph has odd number of vertices,
+
+D. Degree of every vertex in a cubic graph is even.
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/68bd0612ba503a3d6feb06795ca7e0b2-A4A8E.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/68bd0612ba503a3d6feb06795ca7e0b2-A4A8E.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260973371830292" id="message-921260973371830292" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 22 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cc8c6c758e64eb5c38ef3f52da207d0d5.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\c8c6c758e64eb5c38ef3f52da207d0d5.PNG</a>
+<strong>OCR: </strong>If ({0,2.3,4,5,6,7.8.12},5)is a poset and a&lt;b&lt; a divides b then maximal elements of the
+
+poset are?
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/c8c6c758e64eb5c38ef3f52da207d0d5-6D208.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/c8c6c758e64eb5c38ef3f52da207d0d5-6D208.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260975187972136" id="message-921260975187972136" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 23 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C77a9aa0ac2d63f182094ba7cc0306d9d.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\77a9aa0ac2d63f182094ba7cc0306d9d.PNG</a>
+<strong>OCR: </strong>A valid conclusion from the premises(P &gt; Q). (QR), R&gt;(SAN), Pis?
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/77a9aa0ac2d63f182094ba7cc0306d9d-FD779.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/77a9aa0ac2d63f182094ba7cc0306d9d-FD779.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260977046036490" id="message-921260977046036490" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 24 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C3e9ef85aa4ea6b1f4ae795bfee7e716a.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\3e9ef85aa4ea6b1f4ae795bfee7e716a.PNG</a>
+<strong>OCR: </strong>Which of the following is true in a Boolean algebra?
+
+A. Gv(anb)=(avd) B. av(aad)=(and)
+
+C. av@ab)=(avd) D. av(@ab)=(and)
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/3e9ef85aa4ea6b1f4ae795bfee7e716a-8363F.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/3e9ef85aa4ea6b1f4ae795bfee7e716a-8363F.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260978958635058" id="message-921260978958635058" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 25 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Ce92d0346d50e5b6f7f4e8cdd95bca22d.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\e92d0346d50e5b6f7f4e8cdd95bca22d.PNG</a>
+<strong>OCR: </strong>The complement of 2 in the lattice (L,&lt;) where L=({1,2,3,4,6,9,12,18,36} and
+xS ye x dividesy is
+
+A3 B.9
+
+C4 D. Does not exists
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/e92d0346d50e5b6f7f4e8cdd95bca22d-9854F.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/e92d0346d50e5b6f7f4e8cdd95bca22d-9854F.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260997208072223" id="message-921260997208072223" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 26 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Ce51a8fce88493b1991d47adc7398a988.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\e51a8fce88493b1991d47adc7398a988.PNG</a>
+<strong>OCR: </strong>If the set of all rational numbers (Q), other than 1, forms a group with respect to the binary
+composition * defined by a *b=a+5—ab for all a,b QI} and if 0 is the identity element
+in the group, then the inverse of the element 2 is?
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/e51a8fce88493b1991d47adc7398a988-1F9C3.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/e51a8fce88493b1991d47adc7398a988-1F9C3.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921260999082934272" id="message-921260999082934272" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 27 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C3161dacf8c873b3424c47a4e48743b57.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\3161dacf8c873b3424c47a4e48743b57.PNG</a>
+<strong>OCR: </strong>Ina group of 72 cars tested by a garage in Delhi 18 had faulty tires, 20 had faulty brakes and 13
+exceed the allowable emission limit. Also, 5 cars had faulty tires and brakes, 6 failed on tires
+
+and emission, 10 failed in brakes and emission and 4 cars were unsatisfactory in all three
+respects. Number of cars that had no faults in these three checks is:
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/3161dacf8c873b3424c47a4e48743b57-A7B35.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/3161dacf8c873b3424c47a4e48743b57-A7B35.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921261000999718992" id="message-921261000999718992" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 28 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Ca501e14836c7b58699c38a6d89e6a661.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\a501e14836c7b58699c38a6d89e6a661.PNG</a>
+<strong>OCR: </strong>If G is a complete graph with 28 vertices then 5(G) = and AG) =
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/a501e14836c7b58699c38a6d89e6a661-51777.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/a501e14836c7b58699c38a6d89e6a661-51777.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921261002945880064" id="message-921261002945880064" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 29 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 1</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5Cbcda5b973a2f10a2029e4d0a790ba4b1.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\bcda5b973a2f10a2029e4d0a790ba4b1.PNG</a>
+<strong>OCR: </strong>Choose all correct options:
+A For any two sets 4 and B, AxB=BxA
+
+B. For any two sets 4 and B, AxB2BxA
+
+C.If Risarelation from A to B, then Ris the set of all possible ordered pairs of Ax B.
+D.Arelation R ona set A is reflexive if for every ae A. (aa@)eR
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/bcda5b973a2f10a2029e4d0a790ba4b1-5DBD0.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/bcda5b973a2f10a2029e4d0a790ba4b1-5DBD0.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+            <div class="chatlog__message " data-message-id="921261004292235316" id="message-921261004292235316" title="Message sent: 17-Dec-21 10:12 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Descrivtive Question No: 30 Sub: MA1308 Discrete Mathematics (17,18,19,20) (3 CR), Max Marks: 2</strong>
+<em><strong>Image Link:</strong></em> <a href="https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m%5C9c07dff6c7f1e0bb331dda9f9c33ddc7.PNG">https://online-exam.smitcs.in/admin/uploads/QP_10kNFaky2I0m\9c07dff6c7f1e0bb331dda9f9c33ddc7.PNG</a>
+<strong>OCR: </strong>A workshop makes 140 ton cranes at an increasing rate. In the first year only two cranes are
+made, in the second year three cranes are made, and so on, with n+/ cranes are made in the n&#174;
+
+year. If S,is the number of cranes made by the workshop in the first n years, then a recurrence
+relation for the number of cranes produced in the first n years by the workshop is
+
+A. S,=n+S,.:n21 with ICS, =0 B. $,=(n+1)+S,;n21 with ICS, =0
+
+C. S,=n+5,:n22 with ICS, =0 D. None of these
+
+<strong>--------------------------------------------------------------------------------------------------------</strong></span>
+
+                        </div>
+                    </div>
+
+
+                        <div class="chatlog__embed">
+                            <a href="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/9c07dff6c7f1e0bb331dda9f9c33ddc7-5402B.PNG">
+                                <img class="chatlog__embed-plainimage" src="BCA%202023%20-%20Server%20Demons%20-%20new%20%5B921260732832690176%5D.html_Files/9c07dff6c7f1e0bb331dda9f9c33ddc7-5402B.PNG" alt="Embedded image" loading="lazy">
+                            </a>
+                        </div>
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 40 message(s)</div>
+</div>
+
+</body>
+
+</html>
